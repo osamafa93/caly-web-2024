@@ -1,0 +1,66 @@
+.pop {
+    &.dlvrytime-pop {
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    max-width: 500px;
+                    padding: 30px;
+                    .popup-header {
+                        justify-content: center;
+                        .popup-title {
+                            text-align: center;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    &.locactio-pop {
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    max-width: 400px;
+                    padding: 30px;
+
+                    .popup-header {
+                        justify-content: center;
+
+                        .popup-title {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.inpt-flex {
+    overflow-x: scroll;
+    padding-bottom: 5px;
+    .inptflx-iner {
+        width: 100%;
+        .mp-flex {
+            display: block;
+            margin: 0 0px;
+            flex-wrap: wrap;
+            width: 240px;
+           .map-inerflx {
+                padding: 0 0px;
+            }
+        }
+    }
+}
+
+.inpt-flex::-webkit-scrollbar {
+    height: 5px;
+}
+.rdobtn-card label input[type=radio] ~ span {
+    padding: 10.5px 12px;
+}
+
+.error-mess p {
+    margin: 0px;
+    color: red;
+}

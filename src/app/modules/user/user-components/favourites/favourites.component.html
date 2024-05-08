@@ -1,0 +1,43 @@
+<section class="fetured-section">
+    <div *ngIf="loaddatashow==0" class="card-body pt-0 pb-0">
+        <div class="No-data-foun">
+            <div class="container">
+                <p>{{ 'No_data_found' | translate }}</p>
+                <div class="ntfnd"><img src="assets/images/record_not_found.jpg" alt="img 1"></div>
+            </div>
+        </div>
+    </div>
+    <div (click)="scrollToTop()" class="container">
+        <div *ngIf="loaddatashow==1" class="top-heading">
+            <h3>{{ 'Favorites' | translate }}</h3>
+        </div>
+        <div *ngIf="loaddatashow==1" class="feturd-product">
+            <ul>
+                <li *ngFor="let wl of WishListProduct" class="wdth-25">
+                    <div class="prdct-card">
+                        <div class="favrate-icon">
+                            <label class="fvrtchek-bx">
+                                <input type="checkbox" name="favourite" [checked]="wl.addedToWishList==1">
+                                <span (click)="addToWishList(wl.product_id)" class="fvrticn-chk"></span>
+                            </label>
+                        </div>
+                        <div (click)="ProductDetailsPage(wl.product_id,wl.cart_id)" class="prdctbox-inner">
+                            <div class="prdct-img">
+                                <span><img src="{{wl.product_image}}"
+                                        alt="Caly Services"></span>
+                            </div>
+                            <div class="prdct-detil">
+                                <p>{{wl.product_name}}</p>
+                                <h3 class="mnprc-show">
+                                    {{wl.TotalPrice | number}} SAR
+                                </h3>
+                                <p *ngIf="wl.is_offer==1" class="cutprc-show">{{wl.offer_price | number}} SAR</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+</section>

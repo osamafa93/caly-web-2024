@@ -1,0 +1,31 @@
+.pop {
+    &.language-pop {
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    max-width: 380px;
+                    padding: 30px;
+                    .popup-header {
+                        justify-content: center;
+                        .popup-title {
+                            text-align: center;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+.dflt-badge {
+    display: block;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #fff;
+    background: #3C3CFF;
+    border-radius: 16px;
+    padding: 6px 10px;
+    text-transform: capitalize;
+}

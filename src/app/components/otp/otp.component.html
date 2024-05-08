@@ -1,0 +1,47 @@
+<div class="login-wrap-outer">
+	<div class="login-wrap-inner">
+		<div class="login-section">
+			<div class="login-main">
+				<div class="lgn-lftrt loginbgimg-section">
+					<div class="lgn-bg" style="background-image: url(assets/images/login-bg.jpg);">
+						<span class="logo"><img src="assets/images/logo.png" alt="Caly"></span>
+					</div>
+				</div>
+				<div class="lgn-lftrt login-form">
+					<div class="login-wrap">
+						<div class="login-heading">
+							<h1>{{ 'Confirm_phone_number' | translate }}</h1>
+							<p>{{ 'Type_the_code' | translate }}:<span class="otp-code">{{showotp}}</span></p>
+						</div>
+						<div class="login-flds">
+
+							<div class="otp-input">
+								<ng-otp-input (keyup.enter)="verifyotpfun()" #ngOtpInput
+									(onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent" [config]="config">
+								</ng-otp-input>
+								<div *ngIf="errormsg==1" class="error-mess">
+									<p>{{errrormessage}}</p>
+								</div>
+							</div>
+							<div class="otptimng-msg">
+								<p>{{'you_will_receive_the_code_within' | translate }}</p>
+							</div>
+							<div class="login-btn">
+								
+								<button (click)="verifyotpfun()" class="btn main-btn">
+									<div *ngIf="loadershow==1" class="loadershow">
+										<img src="assets/images/loader.gif">
+									</div>
+									<span *ngIf="loadershow!=1">{{ 'Next' | translate }}</span>
+								</button>
+							</div>
+							<div class="otpnot-rcvdmsg">
+								<p>{{ 'Dont_receive_OTP' | translate }}<a (click)="gotoResendOtp()">{{ 'Resend' | translate }}</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

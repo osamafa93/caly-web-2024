@@ -1,0 +1,121 @@
+
+
+.disabel-btn:hover {
+    background: #7689ff;
+}
+
+.pop {
+    &.addloction-pop {
+        // visibility: hidden;
+        // opacity: 0;
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    max-width: 480px;
+                    padding: 30px;
+                    .popup-header {
+                        justify-content: center;
+                        .popup-title {
+                            // text-align: center;
+                            .adres-mp {
+                                color: #2140f9;
+                                margin-top: 15px
+                            }
+                        }
+                    }
+                    .close-popup {
+                        align-items: flex-start;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.cntrycod-main {
+    max-height: 70vh;
+    overflow: auto;
+    .cntrycd-card {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+    }
+    .cntry-nmd {
+        h5 {
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 1;
+        }
+        p {
+            font-size: 12px;
+            color: #3c3cff;
+            border-radius: 40px;
+            font-family: "Lufga";
+            font-weight: 500;
+        }
+    }
+    .cntrycd-img {
+        width: 50px;
+        margin-right: 15px;
+        img { 
+            display: block;
+        }
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .pop.addloction-pop {
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    padding: 15px;
+                    .cntrycd-img {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .login-wrap-outer {
+        .login-wrap-inner {
+            .login-section {
+                padding: 10px;
+            }
+        }
+    }
+}
+
+
+.login-btn {
+    margin-top: 30px;
+    button{
+        position: relative;
+        min-height: 45px;
+        .loadershow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px;
+            background: #ffffff30;
+            border-radius: 0.475rem;
+            height: 100%;
+            cursor: no-drop;
+            img{
+                width: 55px;
+            }
+        }
+
+    }
+}
+
+body {
+    padding: 0;
+}

@@ -1,0 +1,444 @@
+<section class="profile-section white-bg">
+    <div *ngIf="loaddatashow==1 || loaddatashow==0" class="container">
+        <div class="dsh-flx">
+            <div class="dshflx-inner prfl-left">
+                <div class="card-wthbrdr">
+                    <div class="menu-listing">
+                        <ul>
+                            <li routerLink="/user/saved-location">
+                                <span>
+                                    <img src="assets/images/menu-icon/location.png" alt="Caly">
+                                </span>
+                                {{ 'Saved_locations' | translate }}
+                            </li>
+                            <li routerLink="/user/profile" class="active">
+                                <span>
+                                    <img src="assets/images/menu-icon/profile.png" alt="Caly">
+                                </span>
+                                {{ 'Profile' | translate }}
+                            </li>
+                            <li>
+                                <span>
+                                    <img src="assets/images/menu-icon/wallet.png" alt="Caly">
+                                </span>
+                                {{ 'Wallet' | translate }}
+                                <div class="wlet-amnt">
+                                    <em>{{credit_limit}} SAR</em>
+                                </div>
+                            </li>
+                            <li routerLink="/user/privacy-policy">
+                                <span >
+                                    <img src="assets/images/menu-icon/privacy-policy.png" alt="Caly">
+                                </span>
+                                {{ 'Privacy_policy' | translate }}
+                            </li>
+                            <li routerLink="/user/terms-condition">
+                                <span>
+                                    <img src="assets/images/menu-icon/term-cndition.png" alt="Caly">
+                                </span>
+                                {{ 'Terms_conditions' | translate }}
+                            </li>
+                            <li routerLink="/user/offers">
+                                <span>
+                                    <img src="assets/images/menu-icon/offer.png" alt="Caly">
+                                </span>
+                                {{ 'Offers_discounts' | translate }}
+                            </li>
+                            <li (click)="popopenfun('9')">
+                                <span>
+                                    <img src="assets/images/menu-icon/language.png" alt="Caly">
+                                </span>
+                                {{ 'Language' | translate }}
+                            </li>
+                            <li>
+                                <span>
+                                    <img src="assets/images/menu-icon/support.png" alt="Caly">
+                                </span>
+                                {{ 'Support' | translate }}
+                            </li>
+                            <li routerLink="/login">
+                                <span>
+                                    <img src="assets/images/menu-icon/logout.png" alt="Caly">
+                                </span>
+                                {{ 'Logout' | translate }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dshflx-inner prfl-right">
+                <div class="card-wthbrdr">
+                    <div class="svdloc-main">
+                        <div class="vrfy-main">
+                            <div *ngIf="under_review!=1 && verification_type==''" class="vrfd-box">
+                                <h3 class="dngr-txt"><span><i class="fa fa-star" aria-hidden="true"></i></span>{{name}}</h3>
+                                <p class="ntvrfy-ttl" routerLink="/user/verify-account">{{ 'Verifiy_your_account' | translate }}</p>
+                            </div>
+                            <div *ngIf="verification_type!='' && under_review!=1" class="vrfd-box maxwdth-400">
+                                <h3 class="wrning-txt"><span><i class="fa fa-star" aria-hidden="true"></i></span>{{name}}</h3>
+                                <p class="status-bar">{{ 'Account_verification_status' | translate }}</p>
+                                <div *ngIf="under_review==2" class="undreviwe-text">
+                                    <p class="text-blue">{{ 'Under_review' | translate }}</p>
+                                    <p>{{ 'You_can_order_now' | translate }}</p>
+                                </div>
+                            </div>
+                            <div *ngIf="under_review==1" class="vrfd-box">
+                                <h3 class="prmry-txt"><span><i class="fa fa-star" aria-hidden="true"></i></span>{{name}}</h3>
+                                <!-- <p class="ntvrfy-ttl">Your account is verified</p> -->
+                            </div>
+                            <div class="profil-form">
+                                <div class="lf-single">
+                                    <label class="label">{{ 'Business_Information' | translate }}</label>
+                                    <input type="text" name="company_name" [(ngModel)]="company_name" placeholder="{{ 'Company_Name' | translate }}"/>
+                                    <div class="othr-inpt">
+                                        <div class="pop-inpt" (click)="popopenfun('7')">
+                                            <p>{{ 'Bougth_Monthly' | translate }}: {{bought_monthly}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lf-single">
+                                    <label class="label">{{ 'Place_type' | translate }}</label>
+                                    <div class="mp-flex">
+                                        <div class="map-inerflx mpwdth-50">
+                                            <div (click)="place_typeFun('1')" class="rdobtn-card">
+                                                <label>
+                                                    <input name="place_type" type="radio" [checked]="place_type==1">
+                                                    <span><em></em>
+                                                        <i>{{ 'Store' | translate }}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="map-inerflx mpwdth-50">
+                                            <div (click)="place_typeFun('2')"  class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio" [checked]="place_type==2">
+                                                    <span><em></em>
+                                                        <i>{{ 'Warehouse' | translate }}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lf-single">
+                                    <label class="label">{{ 'Activity_type' | translate }}</label>
+                                    <div class="mp-flex">
+                                        <div class="map-inerflx mpwdth-25">
+                                            <div (click)="activity_typefun(1)" class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio" name="activity_type" [checked]="activity_type==1">
+                                                    <span><em></em>
+                                                        <i>{{ 'Lighting' | translate }}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="map-inerflx mpwdth-25">
+                                            <div (click)="activity_typefun(2)" class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio"  name="activity_type" [checked]="activity_type==2">
+                                                    <span><em></em>
+                                                        <i>{{ 'Plumbing' | translate }}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div (click)="activity_typefun(3)" class="map-inerflx mpwdth-25">
+                                            <div class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio"  name="activity_type" [checked]="activity_type==3">
+                                                    <span><em></em>
+                                                        <i>{{ 'Contractor' | translate }}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lf-single">
+                                    <label class="label">{{ 'Contact_person_Information' | translate }}</label>
+                                    <input type="text" name="name" [(ngModel)]="name" placeholder="{{ 'Your_name' | translate }}" />
+                                    <div class="lgnmain-input">
+                                        <div class="lgnmain-inerflx lgnw-25">
+                                            <div class="lf-single">
+                                                <input type="text" name="country_code" [(ngModel)]="country_code" placeholder="99" />
+                                            </div>
+                                        </div>
+                                        <div class="lgnmain-inerflx lgnw-75">
+                                            <div class="lf-single">
+                                                <input type="text" name="phone" [(ngModel)]="phone" placeholder="{{ 'Phone_number' | translate }}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="othr-inpt">
+                                        <input type="text" name="email" [(ngModel)]="email" placeholder="{{ 'Email' | translate }}" />
+                                    </div>
+                                    <div class="othr-inpt">
+                                        <div class="pop-inpt" (click)="popopenfun('8')">
+                                            <p>{{ 'Job_Name' | translate }}: {{job_name}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pymnt-nxtbtn">
+                                    <button (click)="CustomerDataUpdate()" class="btn main-btn">{{ 'Save' | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Start Bought Monthly Popup  -->
+<div class="pop budget-pop" [ngClass]="{open: popshow === '7'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Bought_Monthly' | translate }}</h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="bought-listing">
+                        <ul>
+                            <li>
+                                <div (click)="BougthMonthlyfun('1')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="bought_monthly" [checked]="bought_monthly==1" value="bouthmonthly">
+                                        <span>{{ 'More_than' | translate }}</span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div (click)="BougthMonthlyfun('2')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="bought_monthly" [checked]="bought_monthly==2" value="bouthmonthly">
+                                        <span>50,000 - 1,00,000</span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div (click)="BougthMonthlyfun('3')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="bought_monthly" [checked]="bought_monthly==3" value="bouthmonthly">
+                                        <span>{{ 'Less_than' | translate }}</span>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button class="btn main-btn" (click)="popshow='0'">{{ 'Confirm' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Bought Monthly Popup  -->
+
+
+
+<!-- Start Job Type Popup  -->
+<div class="pop budget-pop" [ngClass]="{open: popshow === '8'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Job_Type' | translate }}</h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="bought-listing">
+                        <ul>
+                            <li>
+                                <div (click)="jobTypefun('1')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="job_name" [checked]="job_name" value="job_name">
+                                        <span>{{ 'Branch_manager' | translate }}</span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div (click)="jobTypefun('2')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="job_name" [checked]="job_name" value="job_name">
+                                        <span>{{ 'Purchases_manager' | translate }}</span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div (click)="jobTypefun('3')" class="boughtslect">
+                                    <label>
+                                        <input type="radio" name="job_name" [checked]="job_name" value="job_name">
+                                        <span>{{ 'Owner' | translate }}</span>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button class="btn main-btn" (click)="popshow='0'" >{{ 'Confirm' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Job Type Popup  -->
+
+
+
+<!-- Start Change language Popup  -->
+<div class="pop language-pop" [ngClass]="{open: popshow === '9'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Choose_your_language' | translate }}</h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="mp-flex">
+                        <div class="map-inerflx mpwdth-100">
+                            <div class="rdobtn-card">
+                                <label (click)="chooselangfun('1')">
+                                    <input type="radio" name="Activity">
+                                    <span><em></em>
+                                        <i>English</i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="map-inerflx mpwdth-100">
+                            <div class="rdobtn-card">
+                                <label (click)="chooselangfun('2')">
+                                    <input type="radio" name="Activity">
+                                    <span><em></em>
+                                        <i>عربي</i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="map-inerflx mpwdth-100">
+                            <div class="rdobtn-card">
+                                <label (click)="chooselangfun('3')">
+                                    <input type="radio" name="Activity">
+                                    <span><em></em>
+                                        <i>中国人</i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="map-inerflx mpwdth-100">
+                            <div class="rdobtn-card">
+                                <label (click)="chooselangfun('4')">
+                                    <input type="radio" name="Activity">
+                                    <span><em></em>
+                                        <i>اردو</i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button class="btn main-btn" (click)="gotochangelang()">{{ 'Save' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Change language Popup  -->
+
+
+<!-- Start Location Popup  -->
+<div class="pop addloction-pop" [ngClass]="{open: popshow == '3'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Privacy_Policy' | translate }}</h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Location Popup  -->

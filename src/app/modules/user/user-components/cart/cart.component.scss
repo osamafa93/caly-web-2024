@@ -1,0 +1,48 @@
+.countincrs-deleatbtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    .remove-icon {
+        display: block;
+    cursor: pointer;
+        svg {
+            display: block;
+            transition: all 300ms;
+            path {
+                fill: #ff4747;
+                transition: all 300ms;
+            }
+            &:hover {
+                path {
+                    fill: #d73030;
+                }
+            }
+        }
+    }
+}
+.cart-main .crtflx-inner .cartprdct-list ul li .cart-card .crtpr-dtl .crt-tp {
+    padding-right: 22px;
+}
+
+
+    
+.No-data-foun{
+    p {
+        text-align: center;
+        margin: 0;
+        font-size: 18px;
+        color: #484848;
+        font-weight: 500;
+    }
+}
+
+.ntfnd{
+    box-sizing: border-box;
+    width: 100%;
+    img {
+        max-width: 100%;
+        text-align: center;
+       
+    }
+}
+

@@ -1,0 +1,112 @@
+<section class="payment-section white-bg">
+    <div class="container">
+        <div class="pymnt-main">
+            <div class="top-heading">
+                <h3>{{ 'Confirm_Order' | translate }}</h3>
+            </div>
+            <div class="paymnt-card">
+                <div class="crtmid-sumry">
+                    <ul>
+                        <li>
+                            <p class="nrml-txt">{{ 'Cost_of_purchase' | translate }}</p>
+                            <p class="nrml-bldtxt">{{sub_total | desimalnumber}} SAR </p>
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Delivery_fees' | translate }}</p>
+                            <p class="nrml-bldtxt">{{delivery_charges | desimalnumber}} SAR </p>
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Offer_price' | translate }}</p>
+                            <p class="nrml-bldtxt">-{{offer_price | desimalnumber}} SAR</p>
+                        </li>
+                        <li>
+                            <p class="muted-text">{{ 'VAT_Included' | translate }} ({{vat_percentage}}%)</p>
+                            <p class="muted-boldtext">{{vat_price | desimalnumber}} SAR</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="crt-ttlamnt">
+                    <div class="subttl-amnt">
+                        <h3>{{ 'Total' | translate }}</h3>
+                        <h3>{{total | desimalnumber}} SAR</h3>
+                    </div>
+                </div>
+                <div class="pymntcrd-inner">
+                    <div class="lf-single">
+                        <label class="label">{{ 'Payment_method' | translate }}</label>
+                        <input type="text" [(ngModel)]="confirorderdata.paymentMode" placeholder="Cash on Delivery/Wallet" value="Cash on Delivery/Wallet"
+                            readonly/>
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Business_location' | translate }}</label>
+                        <input type="text" name=""[(ngModel)]="confirorderdata.addresstitle" placeholder="Store 1" value="Store 1" readonly />
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Business_VAT_number' | translate }}</label>
+                        <input type="text" name="" [(ngModel)]="confirorderdata.vat_number"placeholder="123456789" value="123456789" readonly />
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Mobile_number' | translate }}</label>
+                        <input type="text" name="" [(ngModel)]="confirorderdata.phone" placeholder="8705906010" value="8705906010" readonly />
+                    </div>
+                    <div class="pymnt-nxtbtn"> 
+                        <button *ngIf="confirorderdata.paymentMode=='COD'" class="btn main-btn" (click)="continueShoping()">{{ 'Placed Order' | translate }}</button>
+                        <button *ngIf="confirorderdata.paymentMode=='Card Payment'" class="btn main-btn" (click)="continueShoping()">{{ 'Proceed_to_payment' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Start Order Compleated Time Popup  -->
+<div class="pop ordrcpmltd-pop" [ngClass]="{open: popshow === '5'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2></h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'" routerLink="/user/home">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="ordrcmpltd-msg">
+                        <div class="imgwth-cntnt">
+                            <span class="cmpltd-img"><img src="assets/images/delivery-truck.png"
+                                    alt="Caly Services"></span>
+                            <p>{{ 'Thank_you_for_choosing' | translate }}</p>
+                            <p>{{ 'We_are_preparing_your_order' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="track-main">
+                        <button class="btn track-btn"  routerLink="/user/order-detail">{{ 'Track_your_order' | translate }}</button>
+                    </div>
+                    <div class="pop-btn">
+                       
+                        <button (click)="continueShoping()" class="btn main-btn">
+                            {{ 'Continue_shopping' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Order Compleated Time Popup  -->

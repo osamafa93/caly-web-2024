@@ -1,0 +1,98 @@
+<div class="login-wrap-outer">
+	<div class="login-wrap-inner">
+		<div class="login-section">
+			<div class="login-main">
+				<div class="lgn-lftrt loginbgimg-section">
+					<div class="lgn-bg" style="background-image: url(assets/images/login-bg.jpg);">
+						<span class="logo"><img src="assets/images/logo.png" alt="Caly"></span>
+					</div>
+				</div>
+				<form [formGroup]="form" class="lgn-lftrt login-form">
+					<div class="login-wrap">
+						<div class="login-heading">
+							<h1>{{ 'Your_phone_number' | translate }}</h1>
+							<p>{{ 'Please_enter_verification_code' | translate }}</p>
+						</div>
+						<div class="login-flds">
+							<div class="lgnmain-input">
+								<div class="lgnmain-inerflx lgnw-25">
+									<div class="lf-single">
+										<input type="text" (click)="countryCodeFun('1')" [(ngModel)]="country_code" [ngModelOptions]="{ standalone: true }"
+											class="form-control form-control-lg form-control-solid" placeholder="99" />
+									</div>
+								</div>
+								<div class="lgnmain-inerflx lgnw-75">
+									<div class="lf-single">
+										<input type="text" name="mobile_number" formControlName="mobile_number"
+											[ngClass]="{ 'ISunvalide':  submitted && f['mobile_number'].errors }"
+											class="form-control form-control-lg form-control-solid"
+											placeholder="{{ 'Phone_number' | translate }}" />
+										<div *ngIf="submitted && f['mobile_number'].errors"
+											class="invalid-error-feedback">
+											<p *ngIf="f['mobile_number'].errors['required']">{{ 'Please_enter_mobile_number' | translate}}
+											</p>
+											<p *ngIf="f['mobile_number'].errors['Validators']">{{ 'Please_enter_valid_number' | translate}}
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="login-rgstr-link">
+								<div class="slect-allchk">
+									<label>
+										<input type="checkbox" [(ngModel)]="terms_condion"
+											[ngModelOptions]="{standalone: true}" name="checkbox">
+										<span></span>
+									</label>
+								</div>
+								<p>{{ 'Accept' | translate}}<a> {{ 'Terms_Conditions' | translate}} </a> {{ 'and' | translate}}<a> {{ 'Privacy_Policy' | translate}}</a></p>
+							</div>
+							
+							<div *ngIf="terms_condion==1" class="login-btn">
+								
+								<button (click)="GotoLogin()" class="btn main-btn">
+									<div *ngIf="loadershow==1" class="loadershow">
+										<img src="assets/images/loader.gif">
+									</div>
+									<span *ngIf="loadershow!=1">{{ 'Next' | translate}}</span>
+								</button>
+								
+							</div>
+							<div *ngIf="terms_condion==0" class="login-btn">
+								<button class="btn disabel-btn"><span>{{ 'Next' | translate}}</span></button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Start Location Popup  -->
+<div class="pop addloction-pop" [ngClass]="{open: popshow==='1'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+              <div class="cntrycod-main">
+				<ul>
+					<li *ngFor="let cc of jsonDataResult">
+					<div (click)="confirm(cc)" class="cntrycd-card">
+						<div class="cntry-nmd">
+							<p>{{cc.Phone_code}}</p>
+							<h5>{{cc.name}}</h5>
+						</div>
+						<div class="cntrycd-img">
+							<img src="{{cc.image}}" alt="Caly">
+						</div>
+						
+					</div>
+				</li>
+				</ul>
+			  </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Location Popup  -->

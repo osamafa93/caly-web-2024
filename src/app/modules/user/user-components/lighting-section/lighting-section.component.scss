@@ -1,0 +1,30 @@
+.feturd-product {
+    ul {
+
+        li {
+            &:nth-child(6) {
+                order: unset;
+            }
+           
+        }
+    }
+}
+
+
+.plumbing-section {
+    &+.fetured-section {
+        padding-top: 0;
+    }
+}
+
+
+    
+.No-data-foun{
+    p {
+        text-align: center;
+        margin: 0;
+        font-size: 18px;
+        color: #484848;
+        font-weight: 500;
+    }
+}

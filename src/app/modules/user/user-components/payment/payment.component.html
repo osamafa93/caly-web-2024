@@ -1,0 +1,337 @@
+<section class="payment-section white-bg">
+    <div class="container">
+        <div class="pymnt-main">
+            <div class="top-heading">
+                <h3>{{ 'Checkout' | translate }}</h3>
+            </div>
+            <div class="paymnt-card">
+                <div class="pymntcrd-inner">
+                    <div class="lf-single">
+                        <label class="label">{{ 'Business_location' | translate }}</label>
+                        <div class="inputwth-edit">
+                            <input type="text" [(ngModel)]="addresstitle" name="" placeholder="Store 1" />
+                            <div class="inpuedt-dash">
+                                <span (click)="popopenfun('4')">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.64621 14H2.57143V12.7143H1.28571V11.6395L2.19978 10.7254L4.56027 13.0859L3.64621 14ZM8.89955 4.67857C8.89955 4.73884 8.87946 4.79911 8.82924 4.84933L3.38504 10.2935C3.33482 10.3437 3.27455 10.3638 3.21429 10.3638C3.08371 10.3638 2.9933 10.2734 2.9933 10.1429C2.9933 10.0826 3.01339 10.0223 3.06362 9.9721L8.50781 4.5279C8.55804 4.47768 8.6183 4.45759 8.67857 4.45759C8.80915 4.45759 8.89955 4.54799 8.89955 4.67857ZM8.35714 2.75L0 11.1071V15.2857H4.17857L12.5357 6.92857L8.35714 2.75ZM15.2176 3.71429C15.2176 3.37277 15.077 3.04129 14.846 2.80022L12.4855 0.449776C12.2444 0.208705 11.9129 0.0680796 11.5714 0.0680796C11.2299 0.0680796 10.8984 0.208705 10.6674 0.449776L9 2.10714L13.1786 6.28571L14.846 4.6183C15.077 4.38728 15.2176 4.0558 15.2176 3.71429Z" fill="#909090"/>
+                                        </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Business_VAT_number' | translate }}</label>
+                        <input type="text"  [(ngModel)]="vat_number"placeholder="1234567890" />
+                    </div>
+                    <div *ngIf="walletAmount>0" class="lf-single">
+                        <label class="label">{{ 'Payment_information' | translate }}</label>
+                        <div class="wletamnt-dtl">
+                            <p class="wlt-wthprc">{{ 'Your_wallet_amount' | translate }}: <span>{{walletAmount | desimalnumber}} SAR</span></p>
+                            <p class="wlt-usemsg">{{ 'Do_you_want_to_use_your_wallet_amount' | translate }}</p>
+                        </div>
+                        <div class="mp-flex">
+                            <div class="map-inerflx mpwdth-50">
+                                <div class="rdobtn-card">
+                                    <label (click)="walletfun('0')">
+                                        <input type="radio" name="walletyesno">
+                                        <span><em></em>
+                                            <i>{{ 'No' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="map-inerflx mpwdth-50">
+                                <div class="rdobtn-card">
+                                    <label (click)="walletfun('1')">
+                                        <input type="radio" name="walletyesno"  [checked]="walletyesno==1">
+                                        <span><em></em>
+                                            <i>{{ 'yes' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="walletyesno==1" class="wletamnt-dtl">
+                            <p class="wlt-wthprc">{{ 'Used_wallet_amount' | translate }}:<span>{{walletAmount | desimalnumber}} SAR </span></p>
+                            <p class="wlt-wthprc">{{ 'Remaining_payable_amount' | translate }}:<span>{{remaining_amount | desimalnumber}} SAR </span> </p>
+                        </div>
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Payment_method' | translate }}</label>
+                        <div class="mp-flex">
+                            <div class="map-inerflx mpwdth-50">
+                                <div class="rdobtn-card">
+                                    <label (click)="paymentModefun('1')">
+                                        <input type="radio" name="paymentType" [checked]="paymentType==1">
+                                        <span><em></em>
+                                            <i>{{ 'Cash_on_Delivery' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="map-inerflx mpwdth-50">
+                                <div class="rdobtn-card">
+                                    <label (click)="paymentModefun('2')">
+                                        <input type="radio" name="paymentType" [checked]="paymentType==1">
+                                        <span><em></em>
+                                            <i>{{ 'Card_Payment' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'Shipment_delivery' | translate }}</label>
+                        <div class="shipmnt-dlvrytime">
+                            <p>{{ 'Shipment_delivery' | translate }}</p>
+                            <h4>{{senddate}} {{ 'From_to_PM' | translate }}</h4>
+                        </div>
+                        <div class="chngedlvry-time" (click)="popopenfun('3')">
+                            <span>
+                                <em>
+                                    <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M9.89011 0C5.79396 0 2.47253 3.35833 2.47253 7.5H0L3.20604 10.7417L3.26374 10.8583L6.59341 7.5H4.12088C4.12088 4.275 6.70055 1.66667 9.89011 1.66667C13.0797 1.66667 15.6593 4.275 15.6593 7.5C15.6593 10.725 13.0797 13.3333 9.89011 13.3333C8.29945 13.3333 6.85714 12.675 5.81868 11.6167L4.64835 12.8C5.99176 14.1583 7.83791 15 9.89011 15C13.9863 15 17.3077 11.6417 17.3077 7.5C17.3077 3.35833 13.9863 0 9.89011 0ZM9.06594 4.16667V8.33333L12.5934 10.45L13.1868 9.44167L10.3022 7.70833V4.16667H9.06594Z"
+                                            fill="black" />
+                                    </svg>
+                                </em>
+                                {{ 'Change_delivery_time' | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lf-single">
+                        <label class="label">{{ 'What_is_the_best_option' | translate }}</label>
+                        <div class="mp-flex">
+                            <div class="map-inerflx mpwdth-33">
+                                <div class="rdobtn-card">
+                                    <label (click)="chanegdateReson('1')">
+                                        <input type="radio" name="reson" [checked]="reson==1">
+                                        <span><em></em>
+                                            <i>{{ 'Reschedule' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="map-inerflx mpwdth-33">
+                                <div class="rdobtn-card">
+                                    <label (click)="chanegdateReson('2')">
+                                        <input type="radio" name="reson" [checked]="reson==2">
+                                        <span><em></em>
+                                            <i>{{ 'Cancel_the_unavailable' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="map-inerflx mpwdth-33">
+                                <div class="rdobtn-card">
+                                    <label (click)="chanegdateReson('3')">
+                                        <input type="radio" name="Activity" [checked]="reson==3">
+                                        <span><em></em>
+                                            <i>{{ 'Let_me_know' | translate }}</i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pymnt-nxtbtn">
+                        <button class="btn main-btn" (click)="nextfun()">{{ 'Next' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Start Cahnge Delivery Time Popup  -->
+<div class="pop dlvrytime-pop" [ngClass]="{open: popshow === '3'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Choose_Date' | translate }}</h2>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="adres-form">
+                        <div class="lf-single">
+                            <label class="label">{{ 'Choose_a_date' | translate }}</label>
+                            <div *ngIf="is_riyadh==1"  class="inpt-flex">
+                                <div *ngFor="let nxt of nextfivedate" (click)="choosedatefun(nxt.senddate)" class="inptflx-iner">
+                                    <div  class="mp-flex">
+                                        <div class="map-inerflx mpwdth-33">
+                                            <div class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio" [checked]='nxt.senddate==senddate'>
+                                                    <span><em></em>
+                                                        <i>{{nxt.showdate | translate}}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div *ngIf="is_riyadh==0" class="inpt-flex">
+                                <div *ngFor="let oftr of afterfivedate" (click)="choosedatefun(oftr.senddate)"class="inptflx-iner">
+                                    <div  class="mp-flex">
+                                        <div class="map-inerflx mpwdth-33">
+                                            <div class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio" [checked]='oftr.senddate==senddate'>
+                                                    <span><em></em>
+                                                        <i>{{oftr.showdate}}</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="inptflx-iner">
+                                    <div  class="mp-flex">
+                                        <div class="map-inerflx mpwdth-33">
+                                            <div class="rdobtn-card">
+                                                <label>
+                                                    <input type="radio" name="reson">
+                                                    <span><em></em>
+                                                        <i>11/04/2023/ sunday</i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="lf-single">
+                            <label class="label">{{ 'Time' | translate }}</label>
+                            <input type="text" name="" placeholder="{{ 'From_to_PM' | translate }}" disabled/>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button class="btn main-btn" (click)="popshow='0'" routerLink="/user/payment">{{ 'Confirm' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Cahnge Delivery Time Popup  -->
+
+
+<!-- Start Location Popup  -->
+<div class="pop locactio-pop" [ngClass]="{open: popshow === '4'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Location' | translate }}</h2>
+                    </div>
+                    <div class="close-popup">
+                        <span (click)="popshow='0'">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="location-list">
+                        <ul>
+                            <li *ngFor="let loc of locationList">
+                                <div (click)="addressFun(loc.address_title)" class="loc-bxcrd">
+                                    <div class="">
+                                        <p>{{loc.address_title}}</p>
+                                    </div>
+                                    <div *ngIf="loc.is_default==1" class="dflt-badge">
+                                        <span>{{ 'default' | translate }}</span>
+                                    </div>
+                                    <div class="loc-action">
+                                        <span class="remove-icon">
+                                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M5.14286 6.96429C5.14286 6.78348 5.00223 6.64286 4.82143 6.64286H4.17857C3.99777 6.64286 3.85714 6.78348 3.85714 6.96429V12.75C3.85714 12.9308 3.99777 13.0714 4.17857 13.0714H4.82143C5.00223 13.0714 5.14286 12.9308 5.14286 12.75V6.96429ZM7.71429 6.96429C7.71429 6.78348 7.57366 6.64286 7.39286 6.64286H6.75C6.5692 6.64286 6.42857 6.78348 6.42857 6.96429V12.75C6.42857 12.9308 6.5692 13.0714 6.75 13.0714H7.39286C7.57366 13.0714 7.71429 12.9308 7.71429 12.75V6.96429ZM10.2857 6.96429C10.2857 6.78348 10.1451 6.64286 9.96429 6.64286H9.32143C9.14062 6.64286 9 6.78348 9 6.96429V12.75C9 12.9308 9.14062 13.0714 9.32143 13.0714H9.96429C10.1451 13.0714 10.2857 12.9308 10.2857 12.75V6.96429ZM11.5714 14.2366C11.5714 14.7188 11.3002 15 11.25 15H2.89286C2.84263 15 2.57143 14.7188 2.57143 14.2366V4.71429H11.5714V14.2366ZM4.82143 3.42857L5.31362 2.25335C5.34375 2.21317 5.42411 2.1529 5.48438 2.14286H8.66853C8.71875 2.1529 8.80915 2.21317 8.83929 2.25335L9.32143 3.42857H4.82143ZM14.1429 3.75C14.1429 3.5692 14.0022 3.42857 13.8214 3.42857H10.7176L10.0145 1.75112C9.81362 1.25893 9.21094 0.857142 8.67857 0.857142H5.46429C4.93192 0.857142 4.32924 1.25893 4.12835 1.75112L3.42522 3.42857H0.321429C0.140625 3.42857 0 3.5692 0 3.75V4.39286C0 4.57366 0.140625 4.71429 0.321429 4.71429H1.28571V14.2768C1.28571 15.3817 2.00893 16.2857 2.89286 16.2857H11.25C12.1339 16.2857 12.8571 15.3415 12.8571 14.2366V4.71429H13.8214C14.0022 4.71429 14.1429 4.57366 14.1429 4.39286V3.75Z"
+                                                    fill="#909090" />
+                                            </svg>
+                                        </span>
+                                        <span class="edit-icon" (click)="updateLocation(loc,'1')"  (click)="popshow='0'" routerLink="/user/map">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M3.64621 14H2.57143V12.7143H1.28571V11.6395L2.19978 10.7254L4.56027 13.0859L3.64621 14ZM8.89955 4.67857C8.89955 4.73884 8.87946 4.79911 8.82924 4.84933L3.38504 10.2935C3.33482 10.3437 3.27455 10.3638 3.21429 10.3638C3.08371 10.3638 2.9933 10.2734 2.9933 10.1429C2.9933 10.0826 3.01339 10.0223 3.06362 9.9721L8.50781 4.5279C8.55804 4.47768 8.6183 4.45759 8.67857 4.45759C8.80915 4.45759 8.89955 4.54799 8.89955 4.67857ZM8.35714 2.75L0 11.1071V15.2857H4.17857L12.5357 6.92857L8.35714 2.75ZM15.2176 3.71429C15.2176 3.37277 15.077 3.04129 14.846 2.80022L12.4855 0.449776C12.2444 0.208705 11.9129 0.0680796 11.5714 0.0680796C11.2299 0.0680796 10.8984 0.208705 10.6674 0.449776L9 2.10714L13.1786 6.28571L14.846 4.6183C15.077 4.38728 15.2176 4.0558 15.2176 3.71429Z"
+                                                    fill="#909090" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button  (click)="updateLocation('','2')" class="btn main-btn btn-wthicon">
+                            <div class="wthicon-inrflx">
+                            <span>
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.25 8.75H13.75V13.75H8.75V16.25H13.75V21.25H16.25V16.25H21.25V13.75H16.25V8.75ZM15 2.5C8.1 2.5 2.5 8.1 2.5 15C2.5 21.9 8.1 27.5 15 27.5C21.9 27.5 27.5 21.9 27.5 15C27.5 8.1 21.9 2.5 15 2.5ZM15 25C9.4875 25 5 20.5125 5 15C5 9.4875 9.4875 5 15 5C20.5125 5 25 9.4875 25 15C25 20.5125 20.5125 25 15 25Z" fill="white"/>
+                                    </svg>
+                            </span>
+                            {{ 'Add_new_location' | translate }}</div></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay"  (click)="popshow='0'"></div>
+  </div>
+  <!-- End Location Popup  -->
+
+
+  
+<!-- Start Location Popup  -->
+<div class="pop locactio-pop" [ngClass]="{open: errormsg == '1'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="error-mess">
+                        <p>{{errrormessage}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay"  (click)="popshow='0'"></div>
+  </div>
+  <!-- End Location Popup  -->

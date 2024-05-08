@@ -1,0 +1,31 @@
+.pop {
+    &.addloction-pop {
+        // visibility: hidden;
+        // opacity: 0;
+        .lm-outer {
+            .lm-inner {
+                .popup-inner {
+                    max-width: 480px;
+                    padding: 30px;
+                    .popup-header {
+                        justify-content: center;
+                        .popup-title {
+                            // text-align: center;
+                            .adres-mp {
+                                color: #2140f9;
+                                margin-top: 15px
+                            }
+                        }
+                    }
+                    .close-popup {
+                        align-items: flex-start;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.map-iframe {
+    height: calc(100vh - 115px);
+}

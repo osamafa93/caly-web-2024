@@ -1,0 +1,171 @@
+<div class="home-slider">
+    <div class="container">
+        <!-- <swiper [config]="config">
+            <div class="swiper-wrapper">
+            <div *ngFor="let bl of BannarList" class="swiper-slide"><img src="{{bl.image}}" alt="img 1"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </swiper> -->
+    </div>
+
+    <div class="services-offered">
+        <div class="container">
+            <div class="main-flex">
+                <div *ngIf="isLogin=='1'" routerLink="/user/order-list" class="inner-flex">
+                    <div class="so-single">
+                        <p>
+                            <i style="background-image:url(assets/images/reorder-items.png);"></i>
+                            <strong>{{'Reorder_items' | translate }}</strong>
+                            <span>{{ 'Lorem_ipsum_dolor_sit' | translate }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div *ngIf="isLogin!='1'" class="inner-flex">
+                    <div (click)="gotologinpage()" class="so-single">
+                        <p>
+                            <i style="background-image:url(assets/images/reorder-items.png);"></i>
+                            <strong>{{'Reorder_items' | translate }}</strong>
+                            <span>{{ 'Lorem_ipsum_dolor_sit' | translate }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="inner-flex">
+                    <div class="so-single" routerLink="/user/offers">
+                        <p>
+                            <i style="background-image:url(assets/images/offers.png);"></i>
+                            <strong>{{ 'Offers' | translate }}</strong>
+                            <span>{{ 'Lorem_ipsum_dolor_sit' | translate }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="inner-flex">
+                    <div class="so-single" routerLink="/user/best-sellers">
+                        <p>
+                            <i style="background-image:url(assets/images/best-seller.png);"></i>
+                            <strong>{{ 'Best_Sellers' | translate }}</strong>
+                            <span>{{ 'Lorem_ipsum_dolor_sit' | translate }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div *ngFor="let bl of BannarList" class="home-slider">
+    <img src="{{bl.image}}" alt="caly">
+</div> -->
+
+
+
+<section class="services-sections">
+    <div class="container">
+        <div class="main-flex">
+            <div *ngFor="let sl of sectionlist" class="inner-flex">
+                <div (click)="sectionDetails(sl.section_id,sl.section_name,'section')" class="card-gry">
+                    <div class="scsngbg-img">
+                        <span style="background-image: url({{sl.section_image}});"></span>
+                    </div>
+                    <p>{{sl.section_name}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="brands-sections">
+    <div class="container">
+        <div class="top-heading">
+            <h3>{{ 'Shop_By_Brands' | translate }}</h3>
+        </div>
+        <div class="brands-main">
+            <ul>
+                <li *ngFor="let bl of brandList">
+                    <span (click)="BrandDetails(bl.id,bl.brand_name)"><img src="{{bl.brand_image}}" alt="Caly Services"></span>
+                    <strong>{{bl.brand_name}}</strong>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ------------Start All Section Prodcts------------  -->
+
+<div *ngFor="let cl of CategorySection" class="merged-section">
+    <section *ngIf="cl.categories_count > 0" class="plumbing-section">
+        <div class="container">
+            <div class="top-heading">
+                <h3>{{cl.section_name}}</h3>
+            </div>
+            <div class="plmbng-lstng">
+                <ul>
+                    <li *ngFor="let cat of cl.categories">
+                        <div class="plmbng-card" (click)="sectioncategory(cat.id)">
+                            <span><img src="{{cat.category_image}}" alt="Caly Services"></span>
+                            <h4>{{cat.category_name}}</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section  *ngIf="cl.Products_count > 0" class="fetured-section">
+        <div class="container">
+            <div class="top-heading">
+                <h3>{{'Featured_Products' | translate }}</h3>
+                <div class="more-main">
+                    <span class="more-btn" routerLink="/user/lighting-section">
+                        {{ 'More' | translate }}
+                        <i _ngcontent-bii-c60="" aria-hidden="true" class="fa fa-angle-right"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="feturd-product">
+                <ul>
+                    <li *ngFor="let pl of cl.Products" class="wdth-25">
+                        <div class="prdct-card">
+                            <div class="favrate-icon">
+                                <label class="fvrtchek-bx">
+                                    <input type="checkbox" name="favourite">
+                                    <span (click)="addToWishList(pl.id)" class="fvrticn-chk"></span>
+                                </label>
+                            </div>
+                            <div (click)="ProductDetailsPage(pl.id,pl.cart_id)" class="prdctbox-inner">
+                                <div class="prdct-img">
+                                    <span><img src="{{pl.product_image}}" alt="Caly Services"></span>
+                                </div>
+                                <div class="prdct-detil">
+                                    <p>{{pl.product_name}}</p>
+                                    <h3 class="mnprc-show">
+                                        <!-- {{pl.offer_price | Offerprice: vat}} SAR -->
+                                        {{pl.offer_price}} SAR
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li class="wdth-50">
+                        <div class="offer-slider">
+                            <swiper [config]="config">
+                                <div class="swiper-wrapper">
+                                <div *ngFor="let bl of BannarBottomList" class="swiper-slide"><img src="{{bl.image}}" alt="img 1"></div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </swiper>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- ------------End All Section Prodcts------------  -->
+

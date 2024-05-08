@@ -1,0 +1,11 @@
+.feturd-product {
+    ul {
+
+        li {
+            &:nth-child(6) {
+                order: unset;
+            }
+           
+        }
+    }
+}

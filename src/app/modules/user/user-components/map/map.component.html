@@ -1,0 +1,162 @@
+<div class="map-main">
+    <div class="mapwth-inpt">
+        <!-- <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d459.9469985762498!2d75.89623675991122!3d22.743996130044312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fdbb083cb955%3A0x35181305540ab4b!2sCodeMeg%20Soft%20Solutions%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1677755482308!5m2!1sen!2sin"
+            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+
+        <div class="map-iframe" id="hole_page"></div>
+        <div class="map-srchbx">
+            <div class="mapsrch-wthnxtbtn">
+                <div class="mapsrch-wthicon">
+                    <input type="search" name="" placeholder="search loaction" id="enterlocid" />
+                    <!-- <div class="close-popup">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div> -->
+                </div>
+                <div class="mapnxt-btn">
+                     <button (click)="gotookaybtnfun()"  class="btn nxtbtn">{{ 'Next' | translate }}</button>
+                </div>
+            </div>
+            <!-- <div class="mapsrch-drpdwn">
+                <ul>
+                    <li (click)="popopenfun('2')">HP8G+H9 Badr, Riyadh Saudi Arabia</li>
+                    <li (click)="popopenfun('2')">HP8G+H9 Badr, Riyadh Saudi Arabia</li>
+                    <li (click)="popopenfun('2')">HP8G+H9 Badr, Riyadh Saudi Arabia</li>
+                    <li (click)="popopenfun('2')">HP8G+H9 Badr, Riyadh Saudi Arabia</li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Start Location Popup  -->
+<div class="pop addloction-pop" [ngClass]="{open: popshow == '2'}">
+    <div class="lm-outer">
+        <div class="lm-inner">
+            <div class="popup-inner card card-flush py-8">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>{{ 'Location' | translate }}</h2>
+                        <!-- <p class="adres-mp">{{enterloc}}</p> -->
+                        <p class="adres-mp">{{locationdata.address}}</p>
+                    </div>
+                    <div class="close-popup" (click)="popshow='0'">
+                        <span>
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M20.781 3.21888C20.8508 3.28854 20.9062 3.37131 20.944 3.46243C20.9818 3.55354 21.0013 3.65122 21.0013 3.74988C21.0013 3.84853 20.9818 3.94621 20.944 4.03733C20.9062 4.12844 20.8508 4.21121 20.781 4.28088L4.28097 20.7809C4.14014 20.9217 3.94913 21.0008 3.74997 21.0008C3.55081 21.0008 3.3598 20.9217 3.21897 20.7809C3.07814 20.64 2.99902 20.449 2.99902 20.2499C2.99902 20.0507 3.07814 19.8597 3.21897 19.7189L19.719 3.21888C19.7886 3.14903 19.8714 3.09362 19.9625 3.05581C20.0536 3.018 20.1513 2.99854 20.25 2.99854C20.3486 2.99854 20.4463 3.018 20.5374 3.05581C20.6285 3.09362 20.7113 3.14903 20.781 3.21888Z"
+                                    fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21912 3.21888C3.14928 3.28854 3.09386 3.37131 3.05605 3.46243C3.01824 3.55354 2.99878 3.65122 2.99878 3.74988C2.99878 3.84853 3.01824 3.94621 3.05605 4.03733C3.09386 4.12844 3.14928 4.21121 3.21912 4.28088L19.7191 20.7809C19.8599 20.9217 20.051 21.0008 20.2501 21.0008C20.4493 21.0008 20.6403 20.9217 20.7811 20.7809C20.9219 20.64 21.0011 20.449 21.0011 20.2499C21.0011 20.0507 20.9219 19.8597 20.7811 19.7189L4.28112 3.21888C4.21145 3.14903 4.12869 3.09362 4.03757 3.05581C3.94645 3.018 3.84877 2.99854 3.75012 2.99854C3.65147 2.99854 3.55379 3.018 3.46267 3.05581C3.37155 3.09362 3.28879 3.14903 3.21912 3.21888Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="popup-body">
+                    <div class="adres-form">
+                        <div class="lf-single">
+                            <label class="label">{{ 'Address_title' | translate }}</label>
+                            <input type="text" name="" [(ngModel)]="address_title"  placeholder="{{ 'Address_title' | translate }}" />
+                        </div>
+                        <div class="lf-single">
+                            <label class="label">{{ 'Location_name' | translate }}</label>
+                            <div class="mp-flex">
+                                <div class="map-inerflx mpwdth-50">
+                                    <div (click)="place_typeFun('1')" class="rdobtn-card">
+                                        <label>
+                                            <input type="radio" name="place_type" [checked]="place_type==1">
+                                            <span><em></em>
+                                                <i>{{ 'Store' | translate }}</i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="map-inerflx mpwdth-50">
+                                    <div (click)="place_typeFun('2')" class="rdobtn-card">
+                                        <label>
+                                            <input type="radio" name="place_type" [checked]="place_type==2">
+                                            <span><em></em>
+                                                <i>{{ 'Warehouse' | translate }}</i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lf-single">
+                            <label class="label">{{ 'Activity_type' | translate }}</label>
+                            <div class="mp-flex">
+                                <div class="map-inerflx mpwdth-25">
+                                    <div (click)="activity_typefun('1')" class="rdobtn-card">
+                                        <label>
+                                            <input type="radio" name="activity_type" [checked]="activity_type==1">
+                                            <span><em></em>
+                                                <i>{{ 'Lighting' | translate }}</i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="map-inerflx mpwdth-25">
+                                    <div (click)="activity_typefun('2')" class="rdobtn-card">
+                                        <label>
+                                            <input type="radio" name="activity_type" [checked]="activity_type==2">
+                                            <span><em></em>
+                                                <i>{{ 'Plumping' | translate }}</i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="map-inerflx mpwdth-25">
+                                    <div (click)="activity_typefun('3')" class="rdobtn-card">
+                                        <label>
+                                            <input type="radio" name="activity_type" [checked]="activity_type==3">
+                                            <span><em></em>
+                                                <i>{{ 'Contractor' | translate }}</i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lf-single">
+                            <label class="label">{{ 'Note' | translate }}</label>
+                            <textarea rows="3" type="text" [(ngModel)]="note" placeholder="{{ 'Enter_Description_Here' | translate }}"></textarea>
+                        </div>
+                        <div class="lf-single">
+                            <div class="dflloc-flx">
+                                <div class="slect-allchk">
+                                    <label (click)="checkboxfun('1')">
+                                        <input type="checkbox" name="is_default">
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <p>{{ 'Set_as_Default_location' | translate }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <div class="pop-btn">
+                        <button class="btn main-btn" (click)="Addlocationfun()">{{ 'Save' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-overlay" (click)="popshow='0'"></div>
+</div>
+<!-- End Location Popup  -->

@@ -1,0 +1,41 @@
+<section class="profile-section white-bg">
+    <div *ngIf="loaddatashow==0" class="card-body pt-0 pb-0">
+        <div class="No-data-foun">
+            <div class="container">
+                <p>{{ 'No_data_found' | translate }}</p>
+                <div class="ntfnd"><img src="assets/images/record_not_found.jpg" alt="img 1"></div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loaddatashow==1" class="container">
+        <div class="orderlst-main">
+            <div class="top-heading">
+                <h3>{{ 'Orders' | translate }}</h3>
+            </div>
+            <div class="ordr-listng">
+                <ul>
+                    <li *ngFor="let ol of orderList">
+                        <div class="ordr-crd" (click)="orderDetailspage(ol.order_id)">
+                            <div class="ordr-id">
+                                <h3>{{ol.order_reference_id}}</h3>
+                                <p>{{ol.created_at}}</p>
+                            </div>
+                            <div class="order-badge">
+                               <span *ngIf="ol.order_status==0" class="badge badge-primary">{{ 'New' | translate }}</span>
+                               <span *ngIf="ol.order_status==1" class="badge badge-danger">{{ 'Cancelled' | translate }}</span>
+                               <span *ngIf="ol.order_status==2" class="badge badge-success">{{ 'Collected' | translate }} </span>
+                               <span *ngIf="ol.order_status==3" class="badge badge-success">{{ 'Delivered' | translate }}</span>
+                               <span *ngIf="ol.order_status==4" class="badge badge-warning">{{ 'Partial_Collected' | translate }}</span>
+                               <span *ngIf="ol.order_status==5" class="badge badge-danger">{{ 'Partial_Cancelled' | translate }}</span>
+                               <span *ngIf="ol.order_status==6" class="badge badge-warning">{{ 'Partial_Delivered' | translate }}</span>
+                            </div>
+                            <div class="ordrttl-amnt">
+                               <h3>{{ol.total | number}} SAR</h3>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,126 @@
+<section class="payment-section white-bg">
+    <div class="container">
+        <div class="pymnt-main ">
+            <div class="paymnt-card order-detail">
+                <div class="crtmid-sumry">
+                    <ul>
+                        <li>
+                            <p class="nrml-txt">{{ 'Cost_of_purchase' | translate }}</p>
+                            <p class="nrml-bldtxt">{{sub_total | desimalnumber}} SAR </p>
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Delivery_fees' | translate }}</p>
+                            <p class="nrml-bldtxt">{{delivery_charges | desimalnumber}}SAR </p>
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Offer_price' | translate }}</p>
+                            <p class="nrml-bldtxt">-{{offer_price | desimalnumber}} SAR</p>
+                        </li>
+                        <li>
+                            <p class="muted-text">{{ 'VAT_Included' | translate }} ({{vat_percent}}%)</p>
+                            <p class="muted-boldtext">{{vat_price | desimalnumber}} SAR</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="crt-ttlamnt">
+                    <div class="subttl-amnt">
+                        <h3>{{ 'Total' | translate }}</h3>
+                        <h3>{{total | number}} SAR</h3>
+                    </div>
+                </div>
+                <div class="crtmid-sumry">
+                    <ul>
+                        <li>
+                            <p class="nrml-txt">{{ 'Payment_Method' | translate }}</p>
+                            <p class="nrml-bldtxt dngr-text">{{payment_mode}}</p>
+                            <!-- <p class="nrml-bldtxt success-text">Paid</p> -->
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Payment_Status' | translate }}</p>
+                            <p *ngIf="payment_status==0" class="nrml-bldtxt dngr-text">{{ 'Not_Paid' | translate }}</p>
+                            <p *ngIf="payment_status==1" class="nrml-bldtxt success-text">{{ 'Paid' | translate }}</p>
+                        </li>
+                        <li>
+                            <p class="nrml-txt">{{ 'Shipments' | translate }}</p>
+                            <p class="nrml-bldtxt">{{Shipments}} {{ 'Shipment' | translate }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pymntcrd-inner">
+                    <div class="ordrshpmnt-list">
+                        <ul>
+                            <li *ngFor="let sl of shipmentsList">
+                                <div class="shpmnt-card">
+                                    <div class="tp-shpmnt">
+                                        <div class="shpmnt-icon">
+                                            <span>
+                                                <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M19 0H0V13H19V0ZM0 14H4V18H0V14ZM5 14H9V18H5V14ZM10 14H14V18H10V14ZM15 14H19V18H15V14Z"
+                                                        fill="black" fill-opacity="0.5" />
+                                                </svg>
+                                                <em>
+                                                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 0C3.58182 0 0 3.58182 0 8C0 12.4182 3.58182 16 8 16C12.4182 16 16 12.4182 16 8C16 3.58182 12.4182 0 8 0ZM11.4676 6.64727C11.5315 6.57429 11.5801 6.48927 11.6106 6.39721C11.6411 6.30516 11.6529 6.20794 11.6453 6.11126C11.6377 6.01459 11.6108 5.92041 11.5662 5.83428C11.5217 5.74814 11.4604 5.67179 11.3859 5.6097C11.3114 5.54762 11.2252 5.50106 11.1324 5.47277C11.0397 5.44448 10.9422 5.43503 10.8457 5.44497C10.7493 5.4549 10.6558 5.48403 10.5707 5.53064C10.4857 5.57725 10.4108 5.6404 10.3505 5.71636L7.22327 9.46836L5.60509 7.84945C5.46793 7.71698 5.28422 7.64367 5.09353 7.64533C4.90284 7.64699 4.72043 7.72347 4.58559 7.85831C4.45074 7.99316 4.37426 8.17557 4.3726 8.36625C4.37094 8.55694 4.44425 8.74065 4.57673 8.87782L6.75855 11.0596C6.83001 11.1311 6.91556 11.1868 7.00976 11.2233C7.10395 11.2598 7.20473 11.2763 7.30565 11.2717C7.40657 11.2672 7.50544 11.2416 7.59594 11.1967C7.68643 11.1518 7.76658 11.0885 7.83127 11.0109L11.4676 6.64727Z"
+                                                            fill="#b3b3b3" />
+                                                    </svg>
+                                                </em>
+                                            </span>
+                                        </div>
+                                        <h3>{{sl.Shipments_id}}</h3>
+                                    </div>
+                                    <div class="btm-shpmnt">
+                                        <p>{{ 'Shipment_delivery' | translate }}<span>{{sl.Shipment_delivery}}</span><span>{{ 'Am_to_Pm' | translate }}</span></p>
+                                        <div class="shpmnt-prk" >
+                                            <div *ngIf="sl.shipment_status=='0'" class="shpmnt-prknr" >
+                                                <div class="bdrpk-tp active"><h3>{{ 'New' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'Preparing' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'On_the_way' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'Delivered' | translate }}</h3></div>
+                                            </div>
+                                            <div class="shpmnt-prknr" *ngIf="sl.shipment_status=='4'">
+                                                <div class="bdrpk-tp active"><h3>{{ 'New' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'Preparing' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'On_the_way' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'Delivered' | translate }}</h3></div>
+                                            </div>
+                                            <div class="shpmnt-prknr" *ngIf="sl.shipment_status=='1'">
+                                                <div class="bdrpk-tp active"><h3>{{ 'New' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'Preparing' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'On_the_way' | translate }}</h3></div>
+                                                <div class="bdrpk-tp"><h3 >{{ 'Delivered' | translate }}</h3></div>
+                                            </div>
+                                            <div  class="shpmnt-prknr" *ngIf="sl.shipment_status=='3'">
+                                                <div class="bdrpk-tp active"><h3>{{ 'New' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'Preparing' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'On_the_way' | translate }}</h3></div>
+                                                <div class="bdrpk-tp active"><h3 >{{ 'Delivered' | translate }}</h3></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="invoice-main">
+                        <div class="invoice-inner">
+                            <span>
+                                <svg width="13" height="15" viewBox="0 0 13 15" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.17308 10.5H9.51923V12H3.17308V10.5ZM3.17308 7.5H9.51923V9H3.17308V7.5ZM7.93269 0H1.58654C0.713942 0 0 0.675 0 1.5V13.5C0 14.325 0.706009 15 1.57861 15H11.1058C11.9784 15 12.6923 14.325 12.6923 13.5V4.5L7.93269 0ZM11.1058 13.5H1.58654V1.5H7.13942V5.25H11.1058V13.5Z"
+                                        fill="black" fill-opacity="0.5" />
+                                </svg>
+                            </span>
+                            <h3 (click)="orderInvoicefun()">{{ 'Invoice_Download' | translate }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

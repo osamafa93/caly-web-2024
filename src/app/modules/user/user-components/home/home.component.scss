@@ -1,0 +1,21 @@
+section {
+    &.plumbing-section {
+        &+.fetured-section {
+            padding-top: 0;
+        }
+    }
+
+    &+.plumbing-section{
+            padding-bottom: 30px;
+        }
+    &.fetured-section {
+            padding-top: 0;
+            &+.plumbing-section{
+                padding-top: 0px;
+            }
+     }    
+}
+
+.plmbng-lstng::-webkit-scrollbar {
+    height: 8px;
+}

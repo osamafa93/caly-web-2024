@@ -1,0 +1,597 @@
+ <!-- Navbar Start -->
+ <div class="container-fluid">
+  <div class="row border-top px-xl-5">
+      <div class="col-lg-3 d-none d-lg-block">
+          <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+              <h6 class="m-0">Categories</h6>
+              <i class="fa fa-angle-down text-dark"></i>
+          </a>
+          <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
+              <div class="navbar-nav w-100 overflow-hidden" style="height: 460px">
+              <div *ngFor="let cl of CategorySection">
+                  <div class="nav-item dropdown" *ngIf="cl.categories_count > 0">
+                      <a href="#" class="nav-link" data-toggle="dropdown">{{cl.section_name}} <i class="fa fa-angle-down float-right mt-1"></i></a>
+                      <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                          <a href="#" class="dropdown-item" *ngFor="let cat of cl.categories" (click)="sectioncategory(cat.id)">{{cat.category_name}}</a>
+                      </div>
+                  </div>
+                  <a href="#" class="nav-item nav-link" *ngIf="cl.categories_count == 0">{{cl.section_name}}</a>
+              </div>
+          </div>
+          </nav>
+      </div>
+      <div class="col-lg-9">
+          <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+              <a href="" class="text-decoration-none d-block d-lg-none">
+                  <!-- <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1> -->
+                  <img src="assets/images/logo.png" alt="">
+              </a>
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                  <div class="navbar-nav mr-auto py-0">
+                      <a routerLink="/user/home2" class="nav-item nav-link">Home</a>
+                      <a href="shop.html" class="nav-item nav-link">Shop</a>
+                      <!-- <a href="detail.html" class="nav-item nav-link active">Shop Detail</a> -->
+                      <div class="nav-item dropdown">
+                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                          <div class="dropdown-menu rounded-0 m-0">
+                              <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                              <a href="checkout.html" class="dropdown-item">Checkout</a>
+                          </div>
+                      </div>
+                      <a href="contact.html" class="nav-item nav-link">Contact</a>
+                  </div>
+                  <div class="navbar-nav ml-auto py-0">
+                      <a href="" class="nav-item nav-link">Login</a>
+                      <a href="" class="nav-item nav-link">Register</a>
+                  </div>
+              </div>
+          </nav>
+      </div>
+  </div>
+</div>
+<!-- Navbar End -->
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+      <h1 class="font-weight-semi-bold text-uppercase mb-3">Product Details</h1>
+      <div class="d-inline-flex">
+          <p class="m-0"><a href="">Home</a></p>
+          <p class="m-0 px-2">-</p>
+          <p class="m-0">Product Details</p>
+      </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Shop Detail Start -->
+<div *ngIf="loaddatashow==1" class="container py-5">
+  <div class="row px-xl-5">
+      <div class="col-lg-5 pb-5">
+          <div id="product-carousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner border">
+                  <div class="carousel-item active">
+                      <img *ngIf="product_image" class="w-100 h-100" src="{{product_image}}" alt="Image">
+                      <img *ngIf="!product_image" class="w-100 h-100" src="assets/images/no-image.jpg" alt="Image">
+                  </div>
+                  <!-- <div class="carousel-item">
+                      <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">
+                  </div>
+                  <div class="carousel-item">
+                      <img class="w-100 h-100" src="img/product-3.jpg" alt="Image">
+                  </div>
+                  <div class="carousel-item">
+                      <img class="w-100 h-100" src="img/product-4.jpg" alt="Image">
+                  </div> -->
+              </div>
+              <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                  <i class="fa fa-2x fa-angle-left text-dark"></i>
+              </a>
+              <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                  <i class="fa fa-2x fa-angle-right text-dark"></i>
+              </a>
+          </div>
+      </div>
+
+      <div class="col-lg-7 pb-5">
+          <h3 class="font-weight-semi-bold">{{product_name}}</h3>
+          <p>{{ 'Product_code' | translate }}: {{product_reference_id}}</p>
+          <div class="d-flex mb-3">
+              <div class="text-primary mr-2">
+                  <small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg></small>
+                  <small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg></small>
+                  <small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg></small>
+                  <small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                    <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
+                  </svg></small>
+                  <small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                  </svg></small>
+              </div>
+              <small class="pt-1">(50 Reviews)</small>
+          </div>
+          <p class="prdctdtl-lbl">{{ 'Carton_price' | translate }}:</p>
+          <h3 class="font-weight-semi-bold mb-4">{{totalafterdiscount | desimalnumber}} SAR</h3>
+          <!-- <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p> -->
+          <div class="d-flex mb-3">
+              <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
+              <form>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="size-1" name="size">
+                      <label class="custom-control-label" for="size-1">XS</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="size-2" name="size">
+                      <label class="custom-control-label" for="size-2">S</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="size-3" name="size">
+                      <label class="custom-control-label" for="size-3">M</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="size-4" name="size">
+                      <label class="custom-control-label" for="size-4">L</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="size-5" name="size">
+                      <label class="custom-control-label" for="size-5">XL</label>
+                  </div>
+              </form>
+          </div>
+          <!-- <div class="d-flex mb-4">
+              <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
+              <form>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="color-1" name="color">
+                      <label class="custom-control-label" for="color-1">Black</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="color-2" name="color">
+                      <label class="custom-control-label" for="color-2">White</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="color-3" name="color">
+                      <label class="custom-control-label" for="color-3">Red</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="color-4" name="color">
+                      <label class="custom-control-label" for="color-4">Blue</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="color-5" name="color">
+                      <label class="custom-control-label" for="color-5">Green</label>
+                  </div>
+              </form>
+          </div> -->
+          <div class="d-flex mb-4">
+            <p class="text-dark font-weight-medium mb-0 mr-3">{{ 'Product_Color' | translate }}:</p>
+            <form>
+                <div class="custom-control custom-radio custom-control-inline" *ngFor="let clc of colorCodeList">
+                    <input type="radio" class="custom-control-input" [id]="'color-' + clc.code" name="color" [value]="clc.code" (click)="getcartcountfun(clc.code, clc.name, clc.stock)" [checked]="clc.code === choosecolor">
+                    <label class="custom-control-label" [for]="'color-' + clc.code">
+                        {{ clc.name }}
+                    </label>
+                </div>
+            </form>
+        </div>
+
+          <div class="d-flex align-items-center mb-4 pt-2">
+              <div class="input-group quantity mr-3" style="width: 130px;">
+                  <div (click)="addTocardminus()" class="input-group-btn">
+                      <button class="btn btn-primary btn-minus" >
+                      <i class="fa fa-minus"></i>
+                      </button>
+                  </div>
+                  <input style="width: 50px;" type="text" class="form-control bg-secondary text-center" value="{{cartcount}}" disabled>
+                  <div (click)="addTocardPlus()" class="input-group-btn">
+                      <button class="btn btn-primary btn-plus">
+                          <i class="fa fa-plus"></i>
+                      </button>
+                  </div>
+
+              </div>
+              <!-- <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button> -->
+              <div *ngIf="cartcount > 0" class="adtocrt-btn">
+                <button (click)="addTocard()" class="btn btn-primary px-3">
+                    <span style="font-size: 12px;" class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                    <span style="font-size: 12px;" class="adto-crt"> {{ 'Added_to_cart' | translate }} +</span>
+                </button>
+            </div>
+            <div *ngIf="cartcount==0" class="adtocrt-btn">
+              <button class="btn btn-secondary disabel-btn">
+                  <span class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                  <span class="adto-crt"> {{ 'Add_to_cart' | translate }} +</span>
+              </button>
+          </div>
+          </div>
+          <!-- <div class="d-flex align-items-center mb-4 pt-2">
+              <div class="input-group quantity mr-3" style="width: 130px;">
+                  <div class="input-group-btn">
+                      <button class="btn btn-primary btn-minus" >
+                      <i class="fa fa-minus"></i>
+                      </button>
+                  </div>
+                  <input type="text" class="form-control bg-secondary text-center" value="1">
+                  <div class="input-group-btn">
+                      <button class="btn btn-primary btn-plus">
+                          <i class="fa fa-plus"></i>
+                      </button>
+                  </div>
+              </div>
+              <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+          </div> -->
+          <div class="d-flex pt-2">
+              <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+              <div class="d-inline-flex">
+                  <a class="text-dark px-2" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                      <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                    </svg>
+                  </a>
+                  <a class="text-dark px-2" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                      <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+                    </svg>
+                  </a>
+                  <a class="text-dark px-2" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                      <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                    </svg>
+                  </a>
+                  <a class="text-dark px-2" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pinterest" viewBox="0 0 16 16">
+                      <path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0z"/>
+                    </svg>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row px-xl-5">
+      <div class="col">
+          <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+              <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
+              <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
+              <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+          </div>
+          <div class="tab-content">
+              <div class="tab-pane fade show active" id="tab-pane-1">
+                  <h4 class="mb-3">Product Description</h4>
+                  <p>{{additional_description}}</p>
+              </div>
+              <div class="tab-pane fade" id="tab-pane-2">
+                  <h4 class="mb-3">Additional Information</h4>
+                  <!-- <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p> -->
+                  <div class="row">
+                      <div class="col-md-6">
+                          <ul class="list-group list-group-flush">
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'model_no' | translate }}:</strong> {{model_no}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'Product_weight' | translate }}:</strong> {{weight}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'warranty_period' | translate }}:</strong> {{warranty_period}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'energy_efficiency_rating' | translate }}:</strong> {{energy_efficiency_rating}}
+                              </li>
+                            </ul>
+                      </div>
+                      <div class="col-md-6">
+                          <ul class="list-group list-group-flush">
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'watt' | translate }}:</strong> {{watt}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'Product_size' | translate }}:</strong> {{pro_dimensions}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'qty_per_carton' | translate }}:</strong> {{qty_per_carton}}
+                              </li>
+                              <li class="list-group-item px-0">
+                                <strong>{{ 'piece_price' | translate }}:</strong> {{piece_price}} SAR
+                              </li>
+                            </ul>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="tab-pane-3">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <h6 class="mb-4">1 review for "{{product_name}}"</h6>
+                          <div class="media mb-4">
+                              <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                              <div class="media-body">
+                                  <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                  <div class="text-primary mb-2">
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                      </svg></i>
+                                  </div>
+                                  <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                              </div>
+                          </div>
+                          <div class="media mb-4">
+                              <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                              <div class="media-body">
+                                  <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                  <div class="text-primary mb-2">
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                      </svg></i>
+                                  </div>
+                                  <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                              </div>
+                          </div>
+                          <div class="media mb-4">
+                              <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                              <div class="media-body">
+                                  <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                  <div class="text-primary mb-2">
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
+                                      </svg></i>
+                                      <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                      </svg></i>
+                                  </div>
+                                  <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <h6 class="mb-4">Leave a review</h6>
+                          <small>Your email address will not be published. Required fields are marked *</small>
+                          <div class="d-flex my-3">
+                              <p class="mb-0 mr-2">Your Rating * :</p>
+                              <div class="text-primary">
+                                  <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg></i>
+                                  <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg></i>
+                                  <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg></i>
+                                  <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg></i>
+                                  <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg></i>
+                              </div>
+                          </div>
+                          <form>
+                              <div class="form-group">
+                                  <label for="message">Your Review *</label>
+                                  <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                              </div>
+                              <div class="form-group">
+                                  <label for="name">Your Name *</label>
+                                  <input type="text" class="form-control" id="name">
+                              </div>
+                              <div class="form-group">
+                                  <label for="email">Your Email *</label>
+                                  <input type="email" class="form-control" id="email">
+                              </div>
+                              <div class="form-group mb-0">
+                                  <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Shop Detail End -->
+
+<!-- Product detials old Start -->
+<!-- <section *ngIf="loaddatashow==1" class="prdctdtl-section white-bg">
+    <div class="container">
+        <div class="prdctdtl-main">
+            <div class="prdctdtl-inerflx pd-left">
+                <div class="prdctdtl-sldr">
+                    <div class="show-img">
+                        <img *ngIf="!product_image" src="assets/images/no-image.jpg" alt="img 1">
+                        <img *ngIf="product_image" src="{{product_image}}" alt="Caly Products">
+                    </div>
+                    <div class="prdctdtl-btnsec">
+                        <div class="countincrs-btn">
+                            <span (click)="addTocardminus()" class="sub">-</span>
+                            <div class="count-inpu">
+                                <input type="text" class="form-control" value="{{cartcount}} Carton" placeholder="Carton" disabled>
+                            </div>
+                            <span (click)="addTocardPlus()" class="add">+</span>
+                        </div>
+                        <div *ngIf="cartcount > 0" class="adtocrt-btn">
+                            <button (click)="addTocard()" class="btn main-btn">
+                                <span class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                                <span class="adto-crt">{{ 'Added_to_cart' | translate }} +</span>
+                            </button>
+                        </div>
+                        <div *ngIf="cartcount==0" class="adtocrt-btn">
+                            <button class="btn disabel-btn">
+                                <span class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                                <span class="adto-crt"> {{ 'Add_to_cart' | translate }} +</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="prdctdtl-inerflx">
+                <div class="prdctdtl-descrp">
+                    <div class="tphdng-prdctdtl">
+                        <h3>{{product_name}}</h3>
+                        <p>{{ 'Product_code' | translate }}: {{product_reference_id}}</p>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Pieces_Quantity' | translate }}</p>
+                        <h4>{{qty_per_carton}} {{ 'Pieces' | translate }}</h4>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Product_Color' | translate }}</p>
+                        <div class="slctclr-type">
+                            <ul>
+                                <li *ngFor="let clc of colorCodeList" >
+                                    <div class="prdct-clrbox">
+                                        <input type="radio" *ngIf="clc.code">
+                                        <input type="radio" *ngIf="clc.code != choosecolor" (click)="getcartcountfun(clc.code,clc.name,clc.stock)" [checked]="false" >
+                                        <input type="radio" *ngIf="clc.code == choosecolor"  [checked]="true">
+                                        <div class="clr-rdo">
+                                            <span class="clr-bg" [style.background-color]=clc.code></span>
+                                            <p class="clr-name">{{clc.name}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Product_weight' | translate }}</p>
+                        <h4>{{weight}}</h4>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Product_size' | translate }}</p>
+                        <h4>{{pro_dimensions}}</h4>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Carton_price' | translate }}</p>
+                        <h4 *ngIf="is_offer==1" class="ofr-prc">
+                            <span class="ofr-icon">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M16.8843 8.99999L17.8791 7.28072C17.9986 7.07387 18.0311 6.82801 17.9695 6.59719C17.9078 6.36637 17.757 6.16949 17.5502 6.04984L15.8292 5.05505V3.07267C15.8292 2.83368 15.7342 2.60449 15.5652 2.43551C15.3963 2.26652 15.1671 2.17158 14.9281 2.17158H12.9467L11.9528 0.451418C11.8328 0.244994 11.6363 0.0941432 11.4059 0.0315131C11.2916 0.000530189 11.1723 -0.00745889 11.0549 0.00800889C10.9375 0.0234767 10.8244 0.0620938 10.722 0.121621L9.00098 1.11642L7.27996 0.12072C7.07301 0.00123464 6.82707 -0.0311454 6.59625 0.030703C6.36542 0.0925513 6.16862 0.243562 6.04913 0.450517L5.05436 2.17158H3.07294C2.83397 2.17158 2.60478 2.26652 2.4358 2.43551C2.26682 2.60449 2.17189 2.83368 2.17189 3.07267V5.05415L0.450879 6.04894C0.348188 6.10801 0.25818 6.18679 0.186027 6.28076C0.113874 6.37472 0.0609984 6.48201 0.0304372 6.59648C-0.000123976 6.71094 -0.007768 6.83031 0.00794428 6.94774C0.0236566 7.06516 0.0624154 7.17832 0.121994 7.28072L1.11676 8.99999L0.121994 10.7193C0.00304489 10.9263 -0.029228 11.172 0.0322117 11.4027C0.0936513 11.6335 0.24382 11.8306 0.449978 11.951L2.17099 12.9458V14.9273C2.17099 15.1663 2.26592 15.3955 2.4349 15.5645C2.60388 15.7335 2.83307 15.8284 3.07204 15.8284H5.05436L6.04913 17.5495C6.1289 17.6858 6.24279 17.7991 6.37961 17.8781C6.51643 17.9571 6.67146 17.9991 6.82944 18C6.98622 18 7.1421 17.9585 7.28087 17.8784L9.00008 16.8836L10.7211 17.8784C10.928 17.9977 11.1738 18.0301 11.4045 17.9684C11.6352 17.9067 11.8321 17.7561 11.9519 17.5495L12.9458 15.8284H14.9272C15.1662 15.8284 15.3954 15.7335 15.5643 15.5645C15.7333 15.3955 15.8283 15.1663 15.8283 14.9273V12.9458L17.5493 11.951C17.6518 11.8918 17.7416 11.8129 17.8136 11.7189C17.8857 11.625 17.9384 11.5177 17.969 11.4033C17.9995 11.2889 18.0072 11.1696 17.9916 11.0522C17.9761 10.9349 17.9375 10.8217 17.8782 10.7193L16.8843 8.99999ZM6.74744 4.48556C7.10602 4.48568 7.44987 4.62825 7.70334 4.8819C7.95681 5.13554 8.09914 5.4795 8.09902 5.83809C8.0989 6.19668 7.95634 6.54054 7.7027 6.79402C7.44906 7.0475 7.10512 7.18983 6.74654 7.18971C6.38796 7.18959 6.04411 7.04703 5.79064 6.79338C5.53717 6.53973 5.39484 6.19578 5.39496 5.83719C5.39508 5.4786 5.53764 5.13474 5.79128 4.88126C6.04492 4.62778 6.38886 4.48544 6.74744 4.48556ZM7.01776 13.136L5.57607 12.0556L10.9824 4.8469L12.4241 5.9273L7.01776 13.136ZM11.2527 13.4964C11.0752 13.4963 10.8994 13.4613 10.7353 13.3933C10.5713 13.3253 10.4223 13.2256 10.2968 13.1001C10.1713 12.9745 10.0718 12.8254 10.0039 12.6613C9.93598 12.4973 9.90107 12.3214 9.90113 12.1439C9.90119 11.9663 9.93622 11.7905 10.0042 11.6265C10.0722 11.4625 10.1719 11.3134 10.2974 11.1879C10.423 11.0624 10.5721 10.9629 10.7362 10.895C10.9002 10.8271 11.0761 10.7922 11.2536 10.7922C11.6122 10.7924 11.956 10.9349 12.2095 11.1886C12.463 11.4422 12.6053 11.7862 12.6052 12.1448C12.6051 12.5034 12.4625 12.8472 12.2089 13.1007C11.9552 13.3542 11.6113 13.4965 11.2527 13.4964Z"
+                                        fill="#2140f9" />
+                                </svg>
+                            </span>
+                            {{totalafterdiscount | desimalnumber}} SAR
+                        </h4>
+                        <h4 *ngIf="is_offer==1" class="cutprc-show">{{ totalPrice | desimalnumber}} SAR</h4>
+                        <h4 *ngIf="is_offer==0" class="ofr-prc">{{ totalPrice| desimalnumber}} SAR</h4>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <h5 class="prdctdtl-lbl">{{ 'Price_Included_VAT' | translate }} ({{vat_percentage}})</h5>
+                    </div>
+                    <div class="btm-prdctdtl">
+                        <p class="prdctdtl-lbl">{{ 'Pieces_price' | translate }}</p>
+                        <h5>{{totalPeacePrice | desimalnumber}} SAR</h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="prdctdtl-btnsec btn-mob">
+            <div  class="countincrs-btn">
+                <span (click)="addTocardminus()" class="sub">-</span>
+                <div class="count-inpu">
+                    <input type="text" class="form-control" value="{{cartcount}} Carton" placeholder="Carton" disabled>
+                </div>
+                <span (click)="addTocardPlus()" class="add">+</span>
+            </div>
+            <div *ngIf="cartcount > 0" class="adtocrt-btn">
+                <button (click)="addTocard()" class="btn main-btn">
+                    <span class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                    <span class="adto-crt">{{ 'Added_to_cart' | translate }} +</span>
+                </button>
+            </div>
+            <div *ngIf="cartcount==0" class="adtocrt-btn">
+                <button class="btn disabel-btn">
+                    <span class="ttl-prc">{{ itemprice | desimalnumber }} SAR</span>
+                    <span class="adto-crt"> {{ 'Add_to_cart' | translate }} +</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section> -->
+<!-- Product detials old End-->
+<hr>
+<section *ngIf="loaddatashow==1" class="fetured-section white-bg">
+    <div class="container">
+        <div class="top-heading">
+            <h3>{{ 'Other_Products_from_same_supplier' | translate }}</h3>
+            <div class="more-main">
+                <span class="more-btn" routerLink="/user/lighting-section">
+                    {{ 'More' | translate }}
+                    <i aria-hidden="true" class="fa fa-angle-right"></i>
+                </span>
+            </div>
+        </div>
+        <div class="feturd-product">
+            <ul>
+                <li *ngFor="let opl of OtherProductlist" class="wdth-25">
+                    <div  class="prdct-card">
+                        <div class="favrate-icon">
+                            <label class="fvrtchek-bx">
+                                <input type="checkbox" name="favourite" [checked]="opl.addedToWishList==1">
+                                <span (click)="addToWishList(opl.product_id)" class="fvrticn-chk"></span>
+                            </label>
+                        </div>
+                        <div (click)="ProductDetailsPage(opl.product_id,opl.cart_id)" class="prdctbox-inner" routerLink="/user/product-detail">
+                            <div class="prdct-img">
+                                <span><img src="{{opl.product_image}}"
+                                        alt="Caly Services"></span>
+                            </div>
+                            <div class="prdct-detil">
+                                <p>{{opl.product_name}}</p>
+                                <h3 class="mnprc-show">
+                                    {{opl.TotalPrice | desimalnumber }} SAR
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
